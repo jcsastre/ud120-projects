@@ -19,4 +19,12 @@ import pickle
 
 enron_data = pickle.load(open("../final_project/final_project_dataset.pkl", "r"))
 
+# print enron_data["FASTOW ANDREW S"]
 
+countTotalPaymentsNaN = 0
+
+for name, features in enron_data.iteritems():
+    if features['total_payments'] == "NaN":
+        countTotalPaymentsNaN += 1
+
+print countTotalPaymentsNaN
