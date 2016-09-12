@@ -22,7 +22,7 @@ def Draw(pred, features, poi, mark_poi=False, name="image.png", f1_name="feature
 
     ### plot each cluster with a different color--add more colors for
     ### drawing more than five clusters
-    colors = ["b", "c", "k", "m", "g"]
+    colors = ["b", "c", "k", "m", "g", "r", "y", "k"]
     for ii, pp in enumerate(pred):
         plt.scatter(features[ii][0], features[ii][1], color = colors[pred[ii]])
 
@@ -44,6 +44,22 @@ data_dict = pickle.load( open("../final_project/final_project_dataset.pkl", "r")
 data_dict.pop("TOTAL", 0)
 
 
+# countTotalPaymentsNaN = 0
+# max = 0
+# min = 0
+# for name, features in data_dict.iteritems():
+#     exercisedStockOptions = features['salary']
+#     if exercisedStockOptions != "NaN" and exercisedStockOptions > 0:
+#         if exercisedStockOptions > max:
+#             max = exercisedStockOptions
+#         if min == 0 or exercisedStockOptions < min:
+#             min = exercisedStockOptions
+
+# print min
+# print max
+# exit()
+
+
 ### the input features we want to use 
 ### can be any key in the person-level dictionary (salary, director_fees, etc.) 
 feature_1 = "salary"
@@ -52,6 +68,12 @@ poi  = "poi"
 features_list = [poi, feature_1, feature_2]
 data = featureFormat(data_dict, features_list )
 poi, finance_features = targetFeatureSplit( data )
+
+from sklearn.preprocessing import MinMaxScaler
+scaler = MinMaxScaler()
+scaler.fit(finance_features)
+print scaler.transform([[200000., 1000000.]])
+exit()
 
 
 ### in the "clustering with 3 features" part of the mini-project,
@@ -64,9 +86,10 @@ plt.show()
 
 ### cluster here; create predictions of the cluster labels
 ### for the data and store them to a list called pred
-
-
-
+from sklearn.cluster import KMeans
+clusterizer = KMeans()
+clusterizer.fit(finance_features)
+pred = clusterizer.predict(finance_features)
 
 ### rename the "name" parameter when you change the number of features
 ### so that the figure gets saved to a different file
