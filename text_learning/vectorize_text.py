@@ -2,7 +2,6 @@
 
 import os
 import pickle
-import re
 import sys
 
 sys.path.append( "../tools/" )
@@ -21,7 +20,6 @@ from parse_out_email_text import parseOutText
 
     The data is stored in lists and packed away in pickle files at the end.
 """
-
 
 from_sara  = open("from_sara.txt", "r")
 from_chris = open("from_chris.txt", "r")
